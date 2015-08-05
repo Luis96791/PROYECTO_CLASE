@@ -29,7 +29,12 @@ public class MAIN {
             
             switch(escojer){
                 case 1 :
-                    inst.print();
+                    System.out.print("Ingrese Username: ");
+                    String user=sc.next();
+                    System.out.print("Ingrese Password: ");
+                    String pass=sc.next();
+                    inst.buscarJugador(user, pass);
+                    //inst.print();
                     break;
                 case 2 :
                     System.out.print("Ingrese Username: ");
