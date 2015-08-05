@@ -9,7 +9,7 @@
  * @author user
  */
 public class Player_Maintenance {
-    Player plays[] = new Player[20];
+    Player plays[] = new Player[2];
     int contPlays;
     
     //Funcion que guarda crea jugador y los guarda temporalmente 
@@ -29,7 +29,7 @@ public class Player_Maintenance {
         for (int i = 0; i < plays.length; i++) {
             if(us.equals(plays[i].getUsername()))
                 if(p.equals(plays[i].getPassword()))
-                    System.out.println("Bienvenido"+plays[i].getUsername()+"!");
+                    System.out.println("Bienvenido  "+plays[i].getUsername()+"!");
                     return plays[i];
         }
         System.out.println("Username y Password incorrectos");
