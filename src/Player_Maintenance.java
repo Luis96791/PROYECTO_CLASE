@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,38 +12,48 @@
  * @author user
  */
 public class Player_Maintenance {
-    Player plays[] = new Player[2];
-    int contPlays;
+    ArrayList<Player> plays = new ArrayList<>();
     
-    //Funcion que guarda crea jugador y los guarda temporalmente 
-    //FALTA:    que valide Users repetidos y que la contraseña no tenga mas de cinco caracteres
-    Player crearJugador(String us, String p, int pts){
-        for(int n = 0; n < plays.length; n++){
-            if(plays[n] == null){
-                System.out.println("Jugador creado Exitosamente!");
-                return plays[n] = new Player(us,p,pts=0);
+    Player crearJugador(String us, String p, int cont){
+        
+        
+        
+        for (int i = 0; i < plays.size(); i++) {
+            if (plays.get(i).getPassword().length()>5 && plays.get(i).getPassword().length()<5) {
+                System.out.println("Contrasenia debe ser igual a 5 caracteres !");
+                return null;
             }
-        }        
-        System.out.println("No se pudo crear Jugador!");
-        return null;       
-    }
-    
-    Player buscarJugador(String us, String p){
-        for (int i = 0; i < plays.length; i++) {
-            if(us.equals(plays[i].getUsername()))
-                if(p.equals(plays[i].getPassword()))
-                    System.out.println("Bienvenido  "+plays[i].getUsername()+"!");
-                    return plays[i];
+            
+            if(plays.get(i).getUsername().equals(us)){
+                System.out.println("No se agrego Jugador");
+                return null;
+            }
         }
-        System.out.println("Username y Password incorrectos");
+        plays.add(new Player(us,p,cont=0));
+        System.out.println("Jugador Agregado");
         return null;
     }
     
-    //para comprobar que el arreglo esta guardando en el arreglo
+    Player buscarJugador(String us, String p){
+        for (int i = 0; i < plays.size(); i++) {
+            if(plays.get(i).getUsername().equals(us)){
+                if (plays.get(i).getPassword().equals(p)) {
+                    System.out.println("Bienvenido  "+plays.get(i).getUsername()+" !");
+                    return null;
+                }
+            }
+        }
+        System.out.println("Usuario y/o contrasenia invalidos...");
+        return null;
+    }
+    
+    
+    
+    
+    //Para comprobar que el array este guardando
     void print(){
-        for (int i = 0; i < plays.length; i++) {
-            if(plays[i] != null)
-                System.out.println("Username:   "+plays[i].getUsername()+"Password: "+plays[i].getPassword());
+        for (int i = 0; i < plays.size(); i++) {
+            System.out.println("Username:   "+plays.get(i).getUsername()+" Password:    "+plays.get(i).getPassword()+" Pts. "+plays.get(i).getPuntos());
         }
     }
 }
