@@ -13,7 +13,6 @@ import java.util.Scanner;
  * @author user
  */
 public class Player_Maintenance {
-<<<<<<< HEAD
     Scanner sc = new Scanner(System.in);
     ArrayList<Player> plays = new ArrayList<>();
     String notificar = "Proximamente estara disponible";
@@ -24,18 +23,6 @@ public class Player_Maintenance {
             if (plays.get(i).getUsername().equals("CANCEL") || plays.get(i).getPassword().equals("CANCEL")) {
                     System.out.println("La operacion a sido cancelada por el usuario..!");
                     return null;
-=======
-    Player plays[] = new Player[20];
-    int contPlays;
-    
-    //Funcion que guarda crea jugador y los guarda temporalmente 
-    //FALTA:    que valide Users repetidos y que la contraseña no tenga mas de cinco caracteres
-    Player crearJugador(String us, String p, int pts){
-        for(int n = 0; n < plays.length; n++){
-            if(plays[n] == null){
-                System.out.println("Jugador creado Exitosamente!");
-                return plays[n] = new Player(us,p,pts=0);
->>>>>>> origin/leff
             }
             
             if(plays.get(i).getUsername().equals(us)){
@@ -49,7 +36,6 @@ public class Player_Maintenance {
     }
     
     Player buscarJugador(String us, String p){
-<<<<<<< HEAD
         for (int i = 0; i < plays.size(); i++) {
             if(plays.get(i).getUsername().equals(us)){
                 if (plays.get(i).getPassword().equals(p)) {
@@ -58,13 +44,6 @@ public class Player_Maintenance {
                     return null;
                 }
             }
-=======
-        for (int i = 0; i < plays.length; i++) {
-            if(us.equals(plays[i].getUsername()))
-                if(p.equals(plays[i].getPassword()))
-                    System.out.println("Bienvenido"+plays[i].getUsername()+"!");
-                    return plays[i];
->>>>>>> origin/leff
         }
         System.out.println("Usuario y/o contrasenia invalidos...");
         return null;
