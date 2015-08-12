@@ -17,15 +17,16 @@ public class Player_Maintenance {
     ArrayList<Player> plays = new ArrayList<>();
     String notificar = "Proximamente estara disponible";
     
+    //Falta que el Password sea de 5 caracteres y que cancele el registro al ingresar CANCEL
     Player crearJugador(String us, String p, int cont){
         for (int i = 0; i < plays.size(); i++) {
-            if (plays.get(i).getPassword().length()>5 && plays.get(i).getPassword().length()<5) {
-                System.out.println("Contrasenia debe ser igual a 5 caracteres !");
-                return null;
+            if (plays.get(i).getUsername().equals("CANCEL") || plays.get(i).getPassword().equals("CANCEL")) {
+                    System.out.println("La operacion a sido cancelada por el usuario..!");
+                    return null;
             }
             
             if(plays.get(i).getUsername().equals(us)){
-                System.out.println("No se agrego Jugador");
+                System.out.println("Ya existe un Jugador con ese Usuario");
                 return null;
             }
         }
