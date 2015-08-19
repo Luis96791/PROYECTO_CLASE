@@ -16,13 +16,17 @@ public class Player_Maintenance {
     Scanner sc = new Scanner(System.in);
     ArrayList<Player> plays = new ArrayList<>();//arreglo de players
     String notificar = "Proximamente estara disponible";
-    boolean logged; //declarado true en buscarJugador y al momento de cerrar sesion false para q al buscar un nuevo jugador true de nuevo 
-    Player jugadorLogged;
+    boolean logged, cerrarMenu, cerrarEditar; //declarado true en buscarJugador y al momento de cerrar sesion false para q al buscar un nuevo jugador true de nuevo 
+    Player jugadorLogged, jugadorInvitado;
     
     //para q por default tome el logged y me abra los sets y gets de Player
     //al final esta funcion me ayuda a mostrar, modificar, eliminar Player
     Player getJugador(){
         return jugadorLogged;
+    }
+    
+    Player getInvitado(){
+        return jugadorInvitado;
     }
     
     //funcion utilizada para no hacer tantos for's y para facilitar algunas validaciones
@@ -37,7 +41,9 @@ public class Player_Maintenance {
     
     //solo falta hacer un ciclo que de vuelta cuando se ingrese un usuario que ya existe
     Player crearJugador(String us, String p, int cont){
+        //boolean val_repeat = false;
         Player bp = buscar(us);//ayudandome de la funcion buscar
+        
         if(bp == null){
             if (us.equalsIgnoreCase("cancel")|| p.equalsIgnoreCase("cancel")) {//donde us y p son valores enviados de parametro
                 System.out.println("Operacion cancelada por el usuario");
@@ -54,16 +60,17 @@ public class Player_Maintenance {
         }
         else{
             System.out.println("Ya existe un jugador con ese usuario");
-        }
+        } 
         return null;
     }
     
+    //listo
     void buscarJugador(String us, String p){
         Player bp = buscar(us);
         if (bp != null && bp.getPassword().equals(p)) {//donde bp.getPassword()bp me facilita acceder a los atributos de arreglo 
             System.out.println("Bienvenido  "+bp.getUsername()+" !");
                 menuPrincipal(bp);//llama la funcion menuPrincipal de bp que se convierte como en el LOgged in
-                logged = true;
+                getJugador().equals(bp);
         }
         else{
             System.out.println("Usuerio y/o Contrasenia Invalidos..!");
@@ -77,7 +84,7 @@ public class Player_Maintenance {
     
     //listo evaluar la funcionalidad de logged
     Player cerrarSesion(){
-        logged = false;
+        logged = true;
         return null;
     }
     
@@ -93,24 +100,55 @@ public class Player_Maintenance {
         }
     }
     
-    //en proceso
+    //listo
     void eliminarCuenta(Player jugadorLogged){
+        System.out.print("Desea eliminar Cuenta?:    ");
+        String resp = sc.next();
         
+        if (resp.equalsIgnoreCase("si")) {
+            for (int i = 0; i < plays.size(); i++) {
+                if (jugadorLogged.getUsername().equals(plays.get(i).getUsername())) {
+                    //plays.get(i).equals(jugadorLogged);
+                    plays.remove(i);
+                    System.out.println("Jugador Eliminado..!");
+                    logged = false; cerrarMenu = true; cerrarEditar = true;
+                }
+            }
+        }
     }
+    
+    //casi listo
+    void jugarAjedrez(Player jugadorLogged, Player jugadorInvitado){
+        String notice ="  *Ingrese Username para Jugador Invitado\n";
+        System.out.print(notice+"Ingrese Username: ");
+        String us2 = sc.next();
+        
+        Player bi = buscar(us2);
+        
+        if (bi.getUsername().equals(us2)) {
+            System.out.println("Bienvenido "+bi.getUsername()+" !");
+        }else{
+            System.out.println("El jugador Invitado no Existe..!");
+        }
+    }
+    
+    
     
     void menuPrincipal(Player jugadorLogged){//parametros que garantizan que el menu son de un player en especifico
         int opc;
         do {
+            cerrarMenu =false;
             System.out.println("\n\t** Menu Principal **\n\n\t1.- Jugar Ajedrez\n\t2.- Mi Perfil\n\t3.- Reportes\n\t4.- Cerrar Sesion\n");
             System.out.print("Elija una Opcion: ");
             opc = sc.nextInt();
+            
             switch(opc){
                 case 1: menuJugar(); break;
                 case 2: menuPerfil(jugadorLogged); break;
                 case 3: menuReportes(); break;
-                case 4 : cerrarSesion();break;
+                case 4 : cerrarSesion();cerrarMenu = true;break;
             }
-        } while (opc != 4);
+        } while (cerrarMenu !=true);
     }
     
     void menuJugar(){
@@ -120,7 +158,7 @@ public class Player_Maintenance {
             System.out.print("Elija una Opcion: ");
             opc = sc.nextInt();
             switch(opc){
-                case 1:System.out.println(notificar);break;
+                case 1:jugarAjedrez(jugadorLogged, jugadorInvitado);break;
                 case 2:System.out.println(notificar);break;
                 case 3:System.out.println(notificar);break;
                 case 4:System.out.println(notificar);break;
@@ -130,18 +168,21 @@ public class Player_Maintenance {
     
     void menuPerfil(Player jugadorLogged){
         int opc;
+        cerrarEditar = false;
         do {
             System.out.println("\n\t** Mi Perfil **\n\n\t1.- Ver mis Datos\n\t2.- Ver mis ultimos Juegos\n\t3.- Cambiar mi Password\n\t4.- Conectar a Facebook\n\t5.- Eliminar mi Cuenta\n\t6.- Regresar a Menu Principal\n");
             System.out.print("Elija una Opcion: ");
             opc = sc.nextInt();
+            
             switch(opc){
                 case 1:verDatos(jugadorLogged);break;
                 case 2:System.out.println(notificar);break;
                 case 3:cambiarPassword(jugadorLogged);break;
                 case 4:System.out.println(notificar);break;
-                case 5:System.out.println(notificar);break;
+                case 5:eliminarCuenta(jugadorLogged);break;
+                case 6:cerrarEditar = true;break;
             }
-        } while (opc != 6);
+        } while (cerrarEditar != true);
     }
     
     void menuReportes(){
