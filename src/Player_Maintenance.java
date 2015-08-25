@@ -17,7 +17,7 @@ public class Player_Maintenance {
     ArrayList<Player> plays = new ArrayList<>();//arreglo de players
     String notificar = "Proximamente estara disponible";
     boolean logged, cerrarMenu, cerrarEditar; //declarado true en buscarJugador y al momento de cerrar sesion false para q al buscar un nuevo jugador true de nuevo 
-    Player jugadorLogged, jugadorInvitado;
+    public static Player jugadorLogged, jugadorInvitado;
     
     //para q por default tome el logged y me abra los sets y gets de Player
     //al final esta funcion me ayuda a mostrar, modificar, eliminar Player
@@ -55,7 +55,7 @@ public class Player_Maintenance {
                 return bp;
             }
             
-            plays.add(new Player(us, p, cont=0));//si todo se cumple procedemos a crear nu nuevo usuario
+            plays.add(new Player(us, p, cont=0));//si todo se cumple procedemos a crear nu nuevo objeto
             System.out.println("Jugador Creado Exitosamente");
         }
         else{
@@ -70,7 +70,7 @@ public class Player_Maintenance {
         if (bp != null && bp.getPassword().equals(p)) {//donde bp.getPassword()bp me facilita acceder a los atributos de arreglo 
             System.out.println("Bienvenido  "+bp.getUsername()+" !");
                 menuPrincipal(bp);//llama la funcion menuPrincipal de bp que se convierte como en el LOgged in
-                getJugador().equals(bp);
+                //getJugador().equals(bp);
         }
         else{
             System.out.println("Usuerio y/o Contrasenia Invalidos..!");
@@ -127,6 +127,7 @@ public class Player_Maintenance {
         
         if (bi.getUsername().equals(us2)) {
             System.out.println("Bienvenido "+bi.getUsername()+" !");
+            
         }else{
             System.out.println("El jugador Invitado no Existe..!");
         }
