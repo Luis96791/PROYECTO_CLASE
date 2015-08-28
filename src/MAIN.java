@@ -1,4 +1,5 @@
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -18,14 +19,14 @@ public class MAIN {
         
         Player_Maintenance inst = new Player_Maintenance();
         
-        int escojer;
+        int escojer; boolean cerrar = true, salir = false;
         
         do{
             System.out.println("\n\t1- LOG IN\n\t2- CREAR USUARIO\n\t3- SALIR\n");
+            try{
             System.out.print("Escoja una Opcion:    ");
             escojer = sc.nextInt();
-            if(escojer == 3)
-                System.out.println("    Adios...");
+            cerrar = false;
             
             switch(escojer){
                 case 1 :
@@ -43,7 +44,17 @@ public class MAIN {
                     String contrasena = sc.next();
                     inst.crearJugador(username, contrasena, 0);
                     break;
+                case 3 : System.out.println("   Adios..."); salir = true;break;
             }
-        }while(escojer != 3);
+            }catch(InputMismatchException ime){
+                //cerrar = true;
+                System.out.println("\tPor favor Ingrese un Numero");
+                sc.nextLine();
+            }
+            cerrar = true;
+            if (salir == true) {// Una jugada bastante rara
+                cerrar = false;
+            }
+        }while(cerrar);
     }
 }

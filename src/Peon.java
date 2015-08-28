@@ -34,7 +34,7 @@ public class Peon extends Ficha{
                 }else if(Tablero.Tablero[f2][col2].charAt(1) != 'B'){
                     
                 if(Tablero.Tablero[f2][col2].charAt(0)== 'P'){
-                    System.out.println("El Peon de "+Player_Maintenance.jugadorLogged.getUsername()+" se ha comido al Peon de "+Player_Maintenance.jugadorInvitado.getUsername()+" ");
+                    System.out.println("El Peon de "+/*Player_Maintenance.jugadorLogged.getUsername()*/+" se ha comido al Peon de "+Player_Maintenance.jugadorInvitado.getUsername()+" ");
                 }else if(Tablero.Tablero[f2][col2].charAt(0)=='T'){
                     System.out.println("El Peon de "+Player_Maintenance.jugadorLogged.getUsername()+" se ha comido a la Torre de "+Player_Maintenance.jugadorInvitado.getUsername()+" ");
                 }else if(Tablero.Tablero[f2][col2].charAt(0) == 'C'){
