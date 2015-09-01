@@ -48,7 +48,7 @@ public class MAIN {
             }
             }catch(InputMismatchException ime){
                 //cerrar = true;
-                System.out.println("\tPor favor Ingrese un Numero");
+                System.err.println("\tPor favor Ingrese un Numero");
                 sc.nextLine();
             }
             cerrar = true;

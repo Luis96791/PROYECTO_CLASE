@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.io.*;
 import java.util.Scanner;
 
 /*
@@ -15,6 +16,7 @@ import java.util.Scanner;
  */
 public class Player_Maintenance {
     Scanner sc = new Scanner(System.in);
+    File file = null;
     //IngresoInvalidoException iie = new IngresoInvalidoException();
     ArrayList<Player> plays = new ArrayList<>();//arreglo de players
     String notificar = "Proximamente estara disponible";
@@ -23,11 +25,11 @@ public class Player_Maintenance {
     
     //para q por default tome el logged y me abra los sets y gets de Player
     //al final esta funcion me ayuda a mostrar, modificar, eliminar Player
-    Player getJugador(){
+    static Player getJugador(){
         return jugadorLogged;
     }
     
-    Player getInvitado(){
+    static Player getInvitado(){
         return jugadorInvitado;
     }
     
@@ -62,7 +64,10 @@ public class Player_Maintenance {
             }
             
             plays.add(new Player(us, p, cont=0));//si todo se cumple procedemos a crear nu nuevo objeto
+            jugadorLogged = bp;
             System.out.println("Jugador Creado Exitosamente");
+            System.out.println("Bienvenido  "+us+" !");
+            menuPrincipal(jugadorLogged);
         }
         else{
             System.out.println("Ya existe un jugador con ese usuario");
@@ -133,18 +138,33 @@ public class Player_Maintenance {
     }
     
     //casi listo
-    void jugarAjedrez(Player jugadorLogged, Player jugadorInvitado){
+    void jugarAjedrez(){
+        
         String notice ="  *Ingrese Username para Jugador Invitado\n";
         System.out.print(notice+"Ingrese Username: ");
         String us2 = sc.next();
-        
-        Player bi = buscar(us2);
-        
-        if (bi.getUsername().equals(us2)) {
-            System.out.println("Bienvenido "+bi.getUsername()+" !");
+        boolean exit = false;
+        do {
+            Player bi = buscar(us2);
+            jugadorInvitado = bi;
+            if (jugadorInvitado == null) {
+                System.out.println("Este no es un Jugador Valido");
+                exit = true;
+            }
+
+            if (jugadorInvitado.getUsername().equals(jugadorLogged.getUsername())) {
+                //Tablero.imprimir();
+                System.out.println("Error..! El Jugador Invitado No puede ser Igual al Usuario de esta Cuenta");
+                exit = true;
+            }
             
-        }
-        Tablero.ImprimirTablero();
+            
+        } while (exit != true);
+        
+        
+        
+        
+        
     }
     
     
@@ -183,7 +203,7 @@ public class Player_Maintenance {
             opc = sc.nextInt();
             //continuar = false;
                 switch(opc){
-                    case 1:jugarAjedrez(jugadorLogged, jugadorInvitado);break;
+                    case 1:jugarAjedrez();break;
                     case 2:System.out.println(notificar);break;
                     case 3:System.out.println(notificar);break;
                     case 4:System.out.println(notificar);break;
